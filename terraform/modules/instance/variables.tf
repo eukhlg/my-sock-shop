@@ -29,12 +29,12 @@ variable "vpc_subnet_id" {
 
 variable "ssh_credentials" {
   description = "Credentials for connect to instances"
-  type        = object({
+  type = object({
     user        = string
     private_key = string
     pub_key     = string
   })
-  default     = {
+  default = {
     user        = "evgeny"
     private_key = "~/.ssh/id_rsa"
     pub_key     = "~/.ssh/id_rsa.pub"

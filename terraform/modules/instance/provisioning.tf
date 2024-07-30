@@ -1,5 +1,5 @@
 resource "null_resource" "docker-swarm-manager" {
-  count = var.managers
+  count      = var.managers
   depends_on = [yandex_compute_instance.vm-manager]
   connection {
     user        = var.ssh_credentials.user
@@ -24,7 +24,7 @@ resource "null_resource" "docker-swarm-manager" {
 }
 
 resource "null_resource" "docker-swarm-manager-join" {
-  count = var.managers
+  count      = var.managers
   depends_on = [yandex_compute_instance.vm-manager, null_resource.docker-swarm-manager]
   connection {
     user        = var.ssh_credentials.user
@@ -38,7 +38,7 @@ resource "null_resource" "docker-swarm-manager-join" {
 }
 
 resource "null_resource" "docker-swarm-worker" {
-  count = var.workers
+  count      = var.workers
   depends_on = [yandex_compute_instance.vm-worker, null_resource.docker-swarm-manager-join]
   connection {
     user        = var.ssh_credentials.user
@@ -71,7 +71,7 @@ resource "null_resource" "docker-swarm-manager-start" {
 
   provisioner "remote-exec" {
     inline = [
-        "docker stack deploy --compose-file ~/docker-compose.yml sockshop-swarm"
+      "docker stack deploy --compose-file ~/docker-compose.yml sockshop-swarm"
     ]
   }
 

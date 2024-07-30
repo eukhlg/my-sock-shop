@@ -3,10 +3,10 @@ data "yandex_compute_image" "my_image" {
 }
 
 resource "yandex_compute_instance" "vm-manager" {
-  count    = var.managers
+  count       = var.managers
   platform_id = var.instance_platform_id
-  name     = "my-sock-shop-docker-swarm-manager-${count.index}"
-  hostname = "manager-${count.index}"
+  name        = "my-sock-shop-docker-swarm-manager-${count.index}"
+  hostname    = "manager-${count.index}"
 
   resources {
     cores  = 2
@@ -28,14 +28,14 @@ resource "yandex_compute_instance" "vm-manager" {
   metadata = {
     user-data = "#cloud-config\nusers:\n  - name: ${var.ssh_credentials.user}\n    groups: sudo\n    shell: /bin/bash\n    sudo: ['ALL=(ALL) NOPASSWD:ALL']\n    ssh-authorized-keys:\n      - ${file("${var.ssh_credentials.pub_key}")}"
   }
-  }
+}
 
 
 resource "yandex_compute_instance" "vm-worker" {
-  count    = var.workers
+  count       = var.workers
   platform_id = var.instance_platform_id
-  name     = "my-sock-shop-docker-swarm-worker-${count.index}"
-  hostname = "worker-${count.index}"
+  name        = "my-sock-shop-docker-swarm-worker-${count.index}"
+  hostname    = "worker-${count.index}"
 
   resources {
     cores  = 2
